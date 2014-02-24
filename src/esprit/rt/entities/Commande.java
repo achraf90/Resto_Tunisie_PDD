@@ -7,5 +7,8 @@ package esprit.rt.entities;
  */
 
 public class Commande {
-    
+    private int id;
+    private Reservation reservation;
+    private Plat plat;
+    private int nbr;
 }
