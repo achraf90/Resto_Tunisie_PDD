@@ -6,23 +6,19 @@ package esprit.rt.entities;
  * 
  */
 
-class Plat {
+class Menu {
     
     private int id;
     private String nom;
     private String description;
-    private String type;
-    private float prix;
-    private Menu menu;
+    private Restaurant restaurant;
 
-    public Plat() {
+    public Menu() {
     }
 
-    public Plat(String nom, String description, String type, float prix) {
+    public Menu(String nom, String description) {
         this.nom = nom;
         this.description = description;
-        this.type = type;
-        this.prix = prix;
     }
 
     public int getId() {
@@ -49,33 +45,17 @@ class Plat {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public float getPrix() {
-        return prix;
-    }
-
-    public void setPrix(float prix) {
-        this.prix = prix;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         return hash;
     }
 
@@ -87,15 +67,15 @@ class Plat {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Plat other = (Plat) obj;
-        if (this.id == other.id)
+        final Menu other = (Menu) obj;
+        if (this.id != other.id)
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Plat{" + "id=" + id + ", nom=" + nom + ", description=" + description + ", type=" + type + ", prix=" + prix + ", menu=" + menu + '}';
+        return "Menu{" + "id=" + id + ", nom=" + nom + ", description=" + description + ", restaurant=" + restaurant + '}';
     }
     
 }
