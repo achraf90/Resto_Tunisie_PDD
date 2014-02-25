@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import esprit.rt.utilities.SessionRestoTunisie;
 
 /**
  *
@@ -19,7 +20,7 @@ public class RestaurantDAO {
     
     public void insertDepot(Restaurant r){
 
-        String requete = "insert into restaurant (nom,adresse,cordonnee,num_tel,description,url,type,id_restaurateur) values (?,?,?,?,?,?,?)";
+        String requete = "insert into restaurant (nom,adresse,cordonnee,num_tel,description,url,type,id_restaurateur) values (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
             ps.setString(1, r.getNom());
@@ -29,7 +30,7 @@ public class RestaurantDAO {
             ps.setString(5, r.getDescription());
             ps.setString(6, r.getUrl());
             ps.setString(7, r.getType());
-            ps.setInt(8, r.getRestaurateur().getId());
+            ps.setInt(8, SessionRestoTunisie.getId());
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
@@ -39,7 +40,7 @@ public class RestaurantDAO {
 
 
     public void updateDepot(Restaurant r){
-        String requete = "update restaurant set nom=?,adresse=?,cordonnee=?,num_tel=?,description=?,url=?,type=? where id=?";
+        String requete = "update restaurant set nom=?,adresse=?,cordonnee=?,num_tel=?,description=?,url=?,type=? where id=? and id_restaurateur=?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
             ps.setString(1, r.getNom());
@@ -49,6 +50,8 @@ public class RestaurantDAO {
             ps.setString(5, r.getDescription());
             ps.setString(6, r.getUrl());
             ps.setString(7, r.getType());
+            ps.setInt(8, r.getId());
+            ps.setInt(9, SessionRestoTunisie.getId());
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
         } catch (SQLException ex) {
@@ -97,10 +100,11 @@ public class RestaurantDAO {
 
     public Restaurant findRestaurantByNom(String nom){
     Restaurant r = new Restaurant();
-     String requete = "select * from restaurant where nom = ?";
+     String requete = "select * from restaurant where nom = ? and id_restaurateur=?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
             ps.setString(1, nom);
+            ps.setInt(2, SessionRestoTunisie.getId());
             ResultSet resultat = ps.executeQuery();
             while (resultat.next())
             {
@@ -126,11 +130,11 @@ public class RestaurantDAO {
 
         List<Restaurant> listerestaurants = new ArrayList<Restaurant>();
 
-        String requete = "select * from restaurant";
+        String requete = "select * from restaurant where id_restaurateur=?";
         try {
-           Statement statement = MyConnection.getInstance()
-                   .createStatement();
-            ResultSet resultat = statement.executeQuery(requete);
+           PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+           ps.setInt(1, SessionRestoTunisie.getId());
+            ResultSet resultat = ps.executeQuery(requete);
 
             while(resultat.next()){
                 Restaurant r =new Restaurant();
@@ -157,11 +161,12 @@ public class RestaurantDAO {
 
         List<Restaurant> listedepots = new ArrayList<Restaurant>();
 
-        String requete = "select * from restaurant where type=?";
+        String requete = "select * from restaurant where type=? and id_restaurateur=?";
         
         try {
            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
            ps.setString(1, type);
+           ps.setInt(2, SessionRestoTunisie.getId());
             ResultSet resultat = ps.executeQuery(requete);
             while(resultat.next()){
                 Restaurant r =new Restaurant();

@@ -16,11 +16,12 @@ public class RestaurantByTypeController extends AbstractTableModel{
     
     String[] headers = {"Id", "Nom", "Adresse", "Cordonnee", "Numéro téléphone", "Description", "URL", "Type"};
     List<Restaurant> listeRestaurants = new ArrayList<Restaurant>();
-    
-    public RestaurantByTypeController() {
+    private String type;
+    public RestaurantByTypeController(String type) {
 
         RestaurantDAO restaurantDAO = new RestaurantDAO();
-        listeRestaurants = restaurantDAO.DisplayAllRestaurants();
+        listeRestaurants = restaurantDAO.findRestaurantsByType(type);
+        this.type = type;
     }
     
     @Override
