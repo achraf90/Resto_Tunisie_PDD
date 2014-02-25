@@ -6,11 +6,17 @@
 
 package esprit.rt.gui;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -22,12 +28,45 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
      * Creates new form AuthentificationClientRest
      */
     Font fTitle, fLbl, fBtn;
+    List<JLabel> jlt;
+    List<JLabel> jbtnl;
+    private boolean client;
     public AuthentificationClientRest() throws FontFormatException, IOException {
+        client=true;
+        jlt = new ArrayList<JLabel>();
+        jbtnl = new ArrayList<JLabel>();
         fBtn = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/esprit/rt/fonts/franchise_bold.ttf"));
         fTitle = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/esprit/rt/fonts/track.ttf"));
         fLbl = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/esprit/rt/fonts/onramp.ttf"));
         initComponents();
-        labelEmail.setFont(fBtn);
+        jbtnl.add(btnRest);
+        jlt.add(labelPassword);
+        jlt.add(labelEmail);
+        jbtnl.add(btnClient);
+        jbtnl.add(btnRest);
+        for (JLabel jl : jlt)
+        {
+            jl.setFont(fLbl);
+            jl.setFont(fLbl.deriveFont(0,50));
+        }
+        for (JLabel jl : jbtnl)
+        {
+            jl.setFont(fBtn);
+            jl.setFont(fBtn.deriveFont(0,50));
+        }
+        jPasswordField1.setFont(fBtn);
+        jPasswordField1.setFont(fBtn.deriveFont(0,50));
+        jTextField2.setFont(fBtn);
+        jTextField2.setFont(fBtn.deriveFont(0,50));
+        setLocationRelativeTo(null);
+    }
+
+    public boolean isClient() {
+        return client;
+    }
+
+    public void setClient(boolean client) {
+        this.client = client;
     }
 
     /**
@@ -40,166 +79,235 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jClient = new javax.swing.JPanel();
+        btnClient = new javax.swing.JLabel();
+        jRestaurateur = new javax.swing.JPanel();
+        btnRest = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        labelEmail = new javax.swing.JLabel();
+        btnEntrer = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnFb = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        btnQuitter = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
+        labelPassword = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Authentification");
 
         mainPanel.setBackground(new java.awt.Color(29, 29, 29));
 
-        jPanel1.setBackground(new java.awt.Color(29, 29, 29));
+        jClient.setBackground(new java.awt.Color(29, 29, 29));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/user003.png"))); // NOI18N
-        jLabel4.setText("Client");
+        btnClient.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        btnClient.setForeground(new java.awt.Color(204, 204, 204));
+        btnClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/user003.png"))); // NOI18N
+        btnClient.setText("Client");
+        btnClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tabMouseOver(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tabMouseOut(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jClientLayout = new javax.swing.GroupLayout(jClient);
+        jClient.setLayout(jClientLayout);
+        jClientLayout.setHorizontalGroup(
+            jClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jClientLayout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addComponent(jLabel4)
+                .addComponent(btnClient)
                 .addContainerGap(94, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jClientLayout.setVerticalGroup(
+            jClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jClientLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
+                .addComponent(btnClient)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jRestaurateur.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/restaurateur002.png"))); // NOI18N
-        jLabel3.setText("Restaurateur");
+        btnRest.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        btnRest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/restaurateur002.png"))); // NOI18N
+        btnRest.setText("Restaurateur");
+        btnRest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tabMouseOver(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tabMouseOut(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(32, 32, 32))
+        javax.swing.GroupLayout jRestaurateurLayout = new javax.swing.GroupLayout(jRestaurateur);
+        jRestaurateur.setLayout(jRestaurateurLayout);
+        jRestaurateurLayout.setHorizontalGroup(
+            jRestaurateurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jRestaurateurLayout.createSequentialGroup()
+                .addContainerGap(86, Short.MAX_VALUE)
+                .addComponent(btnRest)
+                .addGap(111, 111, 111))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jRestaurateurLayout.setVerticalGroup(
+            jRestaurateurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jRestaurateurLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(btnRest)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+        btnEntrer.setBackground(new java.awt.Color(29, 29, 29));
+        btnEntrer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/enter001.png"))); // NOI18N
+        jLabel1.setText("S'authentifier");
+
+        javax.swing.GroupLayout btnEntrerLayout = new javax.swing.GroupLayout(btnEntrer);
+        btnEntrer.setLayout(btnEntrerLayout);
+        btnEntrerLayout.setHorizontalGroup(
+            btnEntrerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnEntrerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        btnEntrerLayout.setVerticalGroup(
+            btnEntrerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEntrerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+        btnFb.setBackground(new java.awt.Color(29, 29, 29));
+        btnFb.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/fb001.png"))); // NOI18N
+        jLabel2.setText("Se connecter avec votre compte Facebook");
+
+        javax.swing.GroupLayout btnFbLayout = new javax.swing.GroupLayout(btnFb);
+        btnFb.setLayout(btnFbLayout);
+        btnFbLayout.setHorizontalGroup(
+            btnFbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnFbLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        btnFbLayout.setVerticalGroup(
+            btnFbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnFbLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(32, 32, 32))
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+        btnQuitter.setBackground(new java.awt.Color(29, 29, 29));
+        btnQuitter.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/exit003.png"))); // NOI18N
+        jLabel3.setText("Quitter");
+
+        javax.swing.GroupLayout btnQuitterLayout = new javax.swing.GroupLayout(btnQuitter);
+        btnQuitter.setLayout(btnQuitterLayout);
+        btnQuitterLayout.setHorizontalGroup(
+            btnQuitterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnQuitterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        btnQuitterLayout.setVerticalGroup(
+            btnQuitterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnQuitterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         labelEmail.setForeground(new java.awt.Color(204, 204, 204));
         labelEmail.setText("Email");
 
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setText("Mot de passe");
+        labelPassword.setForeground(new java.awt.Color(204, 204, 204));
+        labelPassword.setText("Mot de passe");
+
+        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnEntrer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(62, 62, 62))))
+                            .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                            .addComponent(labelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRestaurateur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnQuitter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(66, 66, 66)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jRestaurateur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnFb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnEntrer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnQuitter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,6 +316,75 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void tabClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabClicked
+        jTextField2.setText("");
+        jPasswordField1.setText("");
+        if (this.isClient())
+        {
+            jRestaurateur.setBackground(Color.decode("#1d1d1d"));
+            jClient.setBackground(Color.decode("#cccccc"));
+            btnRest.setForeground(Color.decode("#cccccc"));
+            btnClient.setForeground(Color.decode("#1d1d1d"));
+            btnClient.setIcon(new ImageIcon(this.getClass().getResource("/esprit/rt/images/user002.png")));
+            btnRest.setIcon(new ImageIcon(this.getClass().getResource("/esprit/rt/images/restaurateur003.png")));
+            btnFb.setVisible(false);
+            this.setClient(false);
+        }
+        else
+        {
+            jRestaurateur.setBackground(Color.decode("#cccccc"));
+            jClient.setBackground(Color.decode("#1d1d1d"));
+            btnRest.setForeground(Color.decode("#1d1d1d"));
+            btnClient.setForeground(Color.decode("#cccccc"));
+            btnClient.setIcon(new ImageIcon(this.getClass().getResource("/esprit/rt/images/user003.png")));
+            btnRest.setIcon(new ImageIcon(this.getClass().getResource("/esprit/rt/images/restaurateur002.png")));
+            btnFb.setVisible(true);
+            this.setClient(true);
+        }
+    }//GEN-LAST:event_tabClicked
+
+    private void tabMouseOver(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseOver
+        if (evt.getComponent().equals(btnClient))
+        {
+            if (!isClient())
+            {
+                this.setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                evt.getComponent().setForeground(Color.decode("#4c4c4c"));
+            }
+        }
+        if (evt.getComponent().equals(btnRest))
+        {
+            if (isClient())
+            {
+                this.setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                evt.getComponent().setForeground(Color.decode("#4c4c4c"));
+            }
+        }
+        
+    }//GEN-LAST:event_tabMouseOver
+
+    private void tabMouseOut(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseOut
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        if (evt.getComponent().equals(btnClient))
+        {
+            if (!isClient())
+            {
+                evt.getComponent().setForeground(Color.decode("#1d1d1d"));
+            }
+        }
+        if (evt.getComponent().equals(btnRest))
+        {
+            if (isClient())
+            {
+                evt.getComponent().setForeground(Color.decode("#1d1d1d"));
+            }
+        }
+    }//GEN-LAST:event_tabMouseOut
 
     /**
      * @param args the command line arguments
@@ -251,17 +428,20 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnClient;
+    private javax.swing.JPanel btnEntrer;
+    private javax.swing.JPanel btnFb;
+    private javax.swing.JPanel btnQuitter;
+    private javax.swing.JLabel btnRest;
+    private javax.swing.JPanel jClient;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPanel jRestaurateur;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelPassword;
     private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables
 }
