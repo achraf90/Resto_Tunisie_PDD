@@ -10,7 +10,7 @@ import java.util.List;
  * 
  */
 
-class Restaurateur extends Utilisateur{
+public class Restaurateur extends Utilisateur{
     
     private char etat;
     private List<Restaurant> restaurants;

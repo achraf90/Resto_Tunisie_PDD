@@ -1,0 +1,185 @@
+package esprit.rt.dao;
+
+import esprit.rt.entities.Restaurant;
+import esprit.rt.utilities.MyConnection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Pingouins de désert
+ * 
+ */
+
+public class RestaurantDAO {
+    
+    public void insertDepot(Restaurant r){
+
+        String requete = "insert into restaurant (nom,adresse,cordonnee,num_tel,description,url,type,id_restaurateur) values (?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setString(1, r.getNom());
+            ps.setString(2, r.getAdresse());
+            ps.setString(3, r.getCordonnee());
+            ps.setInt(4, r.getNumTel());
+            ps.setString(5, r.getDescription());
+            ps.setString(6, r.getUrl());
+            ps.setString(7, r.getType());
+            ps.setInt(8, r.getRestaurateur().getId());
+            ps.executeUpdate();
+            System.out.println("Ajout effectuée avec succès");
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de l'insertion "+ex.getMessage());
+        }
+    }
+
+
+    public void updateDepot(Restaurant r){
+        String requete = "update restaurant set nom=?,adresse=?,cordonnee=?,num_tel=?,description=?,url=?,type=? where id=?";
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setString(1, r.getNom());
+            ps.setString(2, r.getAdresse());
+            ps.setString(3, r.getCordonnee());
+            ps.setInt(4, r.getNumTel());
+            ps.setString(5, r.getDescription());
+            ps.setString(6, r.getUrl());
+            ps.setString(7, r.getType());
+            ps.executeUpdate();
+            System.out.println("Mise à jour effectuée avec succès");
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la mise à jour "+ex.getMessage());
+        }
+    }
+
+    public void deleteDepot(int id){
+        String requete = "delete from restaurant where id=?";
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            System.out.println("Restaurant supprimée");
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la suppression "+ex.getMessage());
+        }
+    }
+
+
+    public Restaurant findRestaurantById(int id){
+    Restaurant r = new Restaurant();
+     String requete = "select * from restaurant where id=?";
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setInt(1, id);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next())
+            {
+                r.setId(resultat.getInt(1));
+                r.setNom(resultat.getString(2));
+                r.setAdresse(resultat.getString(3));
+                r.setCordonnee(resultat.getString(4));
+                r.setNumTel(resultat.getInt(5));
+                r.setDescription(resultat.getString(6));
+                r.setUrl(resultat.getString(7));
+                r.setType(resultat.getString(8));
+            }
+            return r;
+
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la recherche du restaurant "+ex.getMessage());
+            return null;
+        }
+    }
+
+    public Restaurant findRestaurantByNom(String nom){
+    Restaurant r = new Restaurant();
+     String requete = "select * from restaurant where nom = ?";
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setString(1, nom);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next())
+            {
+                r.setId(resultat.getInt(1));
+                r.setNom(resultat.getString(2));
+                r.setAdresse(resultat.getString(3));
+                r.setCordonnee(resultat.getString(4));
+                r.setNumTel(resultat.getInt(5));
+                r.setDescription(resultat.getString(6));
+                r.setUrl(resultat.getString(7));
+                r.setType(resultat.getString(8));
+            }
+            return r;
+
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la recherche du restaurant "+ex.getMessage());
+            return null;
+        }
+    }
+
+    public List<Restaurant> DisplayAllRestaurants (){
+
+
+        List<Restaurant> listerestaurants = new ArrayList<Restaurant>();
+
+        String requete = "select * from restaurant";
+        try {
+           Statement statement = MyConnection.getInstance()
+                   .createStatement();
+            ResultSet resultat = statement.executeQuery(requete);
+
+            while(resultat.next()){
+                Restaurant r =new Restaurant();
+                r.setId(resultat.getInt(1));
+                r.setNom(resultat.getString(2));
+                r.setAdresse(resultat.getString(3));
+                r.setCordonnee(resultat.getString(4));
+                r.setNumTel(resultat.getInt(5));
+                r.setDescription(resultat.getString(6));
+                r.setUrl(resultat.getString(7));
+                r.setType(resultat.getString(8));
+
+                listerestaurants.add(r);
+            }
+            return listerestaurants;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors du chargement des restaurant "+ex.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Restaurant> findRestaurantsByType (String type){
+
+
+        List<Restaurant> listedepots = new ArrayList<Restaurant>();
+
+        String requete = "select * from restaurant where type=?";
+        
+        try {
+           PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+           ps.setString(1, type);
+            ResultSet resultat = ps.executeQuery(requete);
+            while(resultat.next()){
+                Restaurant r =new Restaurant();
+                r.setId(resultat.getInt(1));
+                r.setNom(resultat.getString(2));
+                r.setAdresse(resultat.getString(3));
+                r.setCordonnee(resultat.getString(4));
+                r.setNumTel(resultat.getInt(5));
+                r.setDescription(resultat.getString(6));
+                r.setUrl(resultat.getString(7));
+                r.setType(resultat.getString(8));
+
+                listedepots.add(r);
+            }
+            return listedepots;
+        } catch (SQLException ex) {
+            System.out.println("erreur lors du chargement des restaurant "+ex.getMessage());
+            return null;
+        }
+    }
+}
