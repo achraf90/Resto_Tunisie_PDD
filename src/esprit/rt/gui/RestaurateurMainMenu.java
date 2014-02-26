@@ -81,6 +81,7 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         title.setText("Menu Principale");
 
         panelBtnGestRest.setBackground(new java.awt.Color(29, 29, 29));
+        panelBtnGestRest.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnGestRest.setBackground(new java.awt.Color(255, 255, 255));
         btnGestRest.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
@@ -88,6 +89,9 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         btnGestRest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/restaurant001.png"))); // NOI18N
         btnGestRest.setText("Gestion des restaurants");
         btnGestRest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                goToRest(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnsMouseEntred(evt);
             }
@@ -114,6 +118,7 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         );
 
         panelBtnGestRes.setBackground(new java.awt.Color(29, 29, 29));
+        panelBtnGestRes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnGestRes.setBackground(new java.awt.Color(255, 255, 255));
         btnGestRes.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
@@ -163,6 +168,7 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         );
 
         panelBtnPB.setBackground(new java.awt.Color(29, 29, 29));
+        panelBtnPB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnGestBP.setBackground(new java.awt.Color(255, 255, 255));
         btnGestBP.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
@@ -198,6 +204,7 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         );
 
         panelBtnQuitter.setBackground(new java.awt.Color(29, 29, 29));
+        panelBtnQuitter.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnQuitter.setForeground(new java.awt.Color(204, 204, 204));
         btnQuitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/exit001.png"))); // NOI18N
@@ -242,18 +249,16 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panelBtnPB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelBtnQuitter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelBtnGestRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(panelBtnGestRest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(mainPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(panelBtnGestRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addComponent(panelBtnGestRest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
@@ -265,20 +270,16 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addGap(448, 448, 448)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(panelBtnGestRest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panelBtnGestRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(panelBtnPB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                                .addComponent(panelBtnQuitter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45))))))
+                        .addGap(18, 18, 18)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelBtnPB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelBtnQuitter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -289,7 +290,9 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -336,6 +339,11 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
     private void btnQuitterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitterMouseClicked
         System.exit(0);
     }//GEN-LAST:event_btnQuitterMouseClicked
+
+    private void goToRest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goToRest
+        new ConsultRestaurant().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_goToRest
 
     /**
      * @param args the command line arguments

@@ -6,6 +6,9 @@
 
 package esprit.rt.gui;
 
+import esprit.rt.dao.ClientDAO;
+import esprit.rt.dao.RestaurateurDAO;
+import esprit.rt.utilities.SessionRestoTunisie;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -17,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,6 +35,8 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
     List<JLabel> jlt;
     List<JLabel> jbtnl;
     private boolean client;
+    RestaurateurDAO udao = new RestaurateurDAO();
+    ClientDAO cdao = new ClientDAO();
     public AuthentificationClientRest() throws FontFormatException, IOException {
         client=true;
         jlt = new ArrayList<JLabel>();
@@ -96,6 +102,7 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Authentification");
+        setResizable(false);
 
         mainPanel.setBackground(new java.awt.Color(29, 29, 29));
 
@@ -176,6 +183,17 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/enter001.png"))); // NOI18N
         jLabel1.setText("S'authentifier");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickAuth(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnEntrerLayout = new javax.swing.GroupLayout(btnEntrer);
         btnEntrer.setLayout(btnEntrerLayout);
@@ -200,6 +218,14 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/fb001.png"))); // NOI18N
         jLabel2.setText("Se connecter avec votre compte Facebook");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnFbLayout = new javax.swing.GroupLayout(btnFb);
         btnFb.setLayout(btnFbLayout);
@@ -224,6 +250,17 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/exit003.png"))); // NOI18N
         jLabel3.setText("Quitter");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnQuitterLayout = new javax.swing.GroupLayout(btnQuitter);
         btnQuitter.setLayout(btnQuitterLayout);
@@ -271,7 +308,7 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                            .addComponent(labelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,6 +422,68 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tabMouseOut
+
+    private void clickAuth(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickAuth
+        // TODO add your handling code here:
+        if (jTextField2.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Le champs email est vide", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if ( new String(jPasswordField1.getPassword()).equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Le champs mot de passe est vide", "Warning", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String[] a = {jTextField2.getText(), new String(jPasswordField1.getPassword())}; 
+        int res = udao.auth(a);
+        if (client)
+            res = cdao.auth(a);
+        if (!client)
+            res = udao.auth(a);
+        if ( res != -1 )
+        {
+            SessionRestoTunisie.setId(res);
+            try {
+                if (!client)
+                    new RestaurateurMainMenu().setVisible(true);
+                if (client)
+                    System.out.println("++++"); // houna toudha3 al client Main Menu
+            } catch (FontFormatException ex) {
+                Logger.getLogger(AuthentificationClientRest.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(AuthentificationClientRest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+        }
+        if ( res == -1 )
+        {
+            jPasswordField1.setText("");
+            JOptionPane.showMessageDialog(this, "Votre email ou mot de passe est incorrect!", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_clickAuth
+
+    private void btnsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsMouseEntered
+       this.setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+       evt.getComponent().getParent().setBackground(Color.decode("#818181"));
+    }//GEN-LAST:event_btnsMouseEntered
+
+    private void btnsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsMouseExited
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        evt.getComponent().getParent().setBackground(Color.decode("#201c19"));
+    }//GEN-LAST:event_btnsMouseExited
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        try {
+            new RestaurateurMainMenu();
+        } catch (FontFormatException ex) {
+            Logger.getLogger(AuthentificationClientRest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AuthentificationClientRest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+        
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments

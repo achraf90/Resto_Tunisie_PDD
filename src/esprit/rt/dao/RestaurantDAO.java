@@ -167,7 +167,7 @@ public class RestaurantDAO {
            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
            ps.setString(1, type);
            ps.setInt(2, SessionRestoTunisie.getId());
-            ResultSet resultat = ps.executeQuery(requete);
+            ResultSet resultat = ps.executeQuery();
             while(resultat.next()){
                 Restaurant r =new Restaurant();
                 r.setId(resultat.getInt(1));
