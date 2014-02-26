@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package esprit.rt.utilities;
 
 import java.awt.Font;
@@ -12,8 +6,10 @@ import java.io.IOException;
 
 /**
  *
- * @author Aditsan Kadmus
+ * @author Pingouins du désert
+ * 
  */
+
 public class FontsPartieRestaurateur {
     private Font fTitle, fLbl, fBtn;
     public static final int TITLE=0, LABEL=1, BUTTON=2;
@@ -31,5 +27,17 @@ public class FontsPartieRestaurateur {
         }       
         return null;
     }
-    
+    public Font getFont(int fontcode, float size) throws FontFormatException, IOException
+    {
+        switch (fontcode)
+        {
+            case TITLE:
+                Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/esprit/rt/fonts/track.ttf")).deriveFont(size);
+            case LABEL:
+                return Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/esprit/rt/fonts/onramp.ttf")).deriveFont(size);
+            case BUTTON:
+                return Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/esprit/rt/fonts/franchise_bold.ttf")).deriveFont(size);
+        }       
+        return null;
+    }
 }
