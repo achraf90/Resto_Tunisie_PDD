@@ -18,7 +18,7 @@ import java.util.List;
 
 public class RestaurantDAO {
     
-    public void insertDepot(Restaurant r){
+    public void insertRestaurant(Restaurant r){
 
         String requete = "insert into restaurant (nom,adresse,cordonnee,num_tel,description,url,type,id_restaurateur) values (?,?,?,?,?,?,?,?)";
         try {

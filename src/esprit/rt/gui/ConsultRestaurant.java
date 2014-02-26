@@ -108,7 +108,7 @@ public class ConsultRestaurant extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/detail001.png"))); // NOI18N
-        jLabel1.setText("Afficher en détail");
+        jLabel1.setText("Afficher en détail et modifier");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
