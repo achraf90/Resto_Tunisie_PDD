@@ -19,7 +19,7 @@ public class Restaurateur extends Utilisateur{
         restaurants = new ArrayList<Restaurant>();
     }
 
-    public Restaurateur(char etat, int id, String nom, String prenom, String email, String password, Date dateNaissance, int numTel, String adresse, String region, char sexe, String questionSecurite, String reponseSecurite, String description) {
+    public Restaurateur(char etat, String nom, String prenom, String email, String password, Date dateNaissance, int numTel, String adresse, String region, char sexe, String questionSecurite, String reponseSecurite, String description) {
         super(nom, prenom, email, password, dateNaissance, numTel, adresse, region, sexe, questionSecurite, reponseSecurite, description);
         this.etat = etat;
         restaurants = new ArrayList<Restaurant>();

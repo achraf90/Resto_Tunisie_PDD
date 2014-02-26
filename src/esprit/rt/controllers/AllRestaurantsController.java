@@ -64,4 +64,5 @@ public class AllRestaurantsController extends AbstractTableModel{
         return headers[column];
     }
     
+   
 }

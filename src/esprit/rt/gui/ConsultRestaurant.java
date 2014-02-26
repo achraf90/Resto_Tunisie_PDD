@@ -7,8 +7,17 @@
 package esprit.rt.gui;
 
 import esprit.rt.controllers.AllRestaurantsController;
+import esprit.rt.utilities.FontsPartieRestaurateur;
+import java.awt.Color;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.TableModel;
 
 /**
@@ -23,6 +32,13 @@ public class ConsultRestaurant extends javax.swing.JFrame {
     public ConsultRestaurant() {
         initComponents();
         title.setVerticalAlignment(JLabel.CENTER);
+        jTable1.getTableHeader().setBackground(Color.decode("#656565"));
+        try {
+            jTable1.getTableHeader().setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.LABEL).deriveFont(0,23));
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTable1.getTableHeader().setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, null, null));
         setLocationRelativeTo(null);
     }
 
@@ -50,6 +66,7 @@ public class ConsultRestaurant extends javax.swing.JFrame {
 
         jTable1.setModel(new AllRestaurantsController());
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getAccessibleContext().setAccessibleName("");
 
         title.setText("Vos restaurants");
 

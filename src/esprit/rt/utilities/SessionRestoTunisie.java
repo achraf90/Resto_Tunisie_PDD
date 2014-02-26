@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class SessionRestoTunisie {
     
-    private static int id;
+    private static int id = 1;
     private static float last_active;
     
     public SessionRestoTunisie()

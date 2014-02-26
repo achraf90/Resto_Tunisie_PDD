@@ -2,13 +2,13 @@ package esprit.rt.dao;
 
 import esprit.rt.entities.Restaurant;
 import esprit.rt.utilities.MyConnection;
+import esprit.rt.utilities.SessionRestoTunisie;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import esprit.rt.utilities.SessionRestoTunisie;
 
 /**
  *
@@ -100,7 +100,7 @@ public class RestaurantDAO {
 
     public Restaurant findRestaurantByNom(String nom){
     Restaurant r = new Restaurant();
-     String requete = "select * from restaurant where nom = ? and id_restaurateur=?";
+     String requete = "select * from restaurant where nom = ? and id_restaurateur = ?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
             ps.setString(1, nom);
@@ -130,14 +130,14 @@ public class RestaurantDAO {
 
         List<Restaurant> listerestaurants = new ArrayList<Restaurant>();
 
-        String requete = "select * from restaurant where id_restaurateur=?";
+        String requete = "select * from restaurant where restaurant.id_restaurateur = ?";
         try {
            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
            ps.setInt(1, SessionRestoTunisie.getId());
-            ResultSet resultat = ps.executeQuery(requete);
-
+           ResultSet resultat = ps.executeQuery();
+           Restaurant r =new Restaurant();
             while(resultat.next()){
-                Restaurant r =new Restaurant();
+                
                 r.setId(resultat.getInt(1));
                 r.setNom(resultat.getString(2));
                 r.setAdresse(resultat.getString(3));

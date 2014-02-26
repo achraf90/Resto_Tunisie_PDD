@@ -8,7 +8,7 @@ import java.util.Date;
  * 
  */
 
-class Client extends Utilisateur{
+public class Client extends Utilisateur{
     
     private int id;
     private char estBloque;
