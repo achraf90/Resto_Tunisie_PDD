@@ -80,11 +80,11 @@ public class ReservationDAO {
         }
           }
          public void updateReservationInterGestRes(int id, String etat){
-        String requete = "update reservation set etat=? where reservation.id=?  ";
+        String requete = "update reservation set etat=? where id=?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
-            ps.setInt(1, id);
-            ps.setString(2, etat);
+            ps.setInt(2, id);
+            ps.setString(1, etat);
             ps.executeUpdate();
             System.out.println("Mise à jour effectuée avec succès");
         } catch (SQLException ex) {

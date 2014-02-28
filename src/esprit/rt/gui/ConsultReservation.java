@@ -10,11 +10,15 @@ import esprit.rt.controllers.AllReservationsController;
 import esprit.rt.controllers.VerifiedReservationsController;
 import esprit.rt.dao.ReservationDAO;
 import esprit.rt.utilities.FontsPartieRestaurateur;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
 
 /**
  *
@@ -35,7 +39,14 @@ public class ConsultReservation extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        jTable1.getTableHeader().setBackground(Color.decode("#656565"));
+        try {
+            jTable1.getTableHeader().setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.LABEL).deriveFont(0,23));
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTable1.getTableHeader().setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, null, null));
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -67,6 +78,8 @@ public class ConsultReservation extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion des réservations");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(29, 29, 29));
 
@@ -83,6 +96,12 @@ public class ConsultReservation extends javax.swing.JFrame {
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mebtns(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mexbtns(evt);
             }
         });
 
@@ -143,6 +162,12 @@ public class ConsultReservation extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mebtns(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mexbtns(evt);
+            }
         });
 
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
@@ -176,7 +201,18 @@ public class ConsultReservation extends javax.swing.JFrame {
 
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/exit003.png"))); // NOI18N
-        jLabel4.setText("Quitter");
+        jLabel4.setText("Retour au menu principale");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mebtns(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mexbtns(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -269,7 +305,6 @@ public class ConsultReservation extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
         jTable1.setModel(new VerifiedReservationsController("V"));
-        
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
@@ -284,13 +319,71 @@ public class ConsultReservation extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-        new ReservationDAO().updateReservationInterGestRes(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString()), "V");
+        try
+        {
+        
+        new ReservationDAO().updateReservationInterGestRes(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()), "V");
+        new FlatosDialogos(this, "Vérifié!", 50f, false).setVisible(true);
+        
+        }
+        catch (Exception e)
+                {
+                    new FlatosDialogos(this, "Erreur veuillez sélectionner une réservation!", 30f, false).setVisible(true);
+                }
+        
+        if (jRadioButton1.isSelected())
+            jTable1.setModel(new VerifiedReservationsController("V"));
+        if (jRadioButton2.isSelected())
+            jTable1.setModel(new VerifiedReservationsController("A"));
+        if (jRadioButton3.isSelected())
+            jTable1.setModel(new AllReservationsController());
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
+        try
+        {
         new ReservationDAO().deleteReservation(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString()));
+        new FlatosDialogos(this, "Effacé!", 50f, false).setVisible(true);
+        }
+        catch (Exception e)
+        {
+            new FlatosDialogos(this, "Erreur veuillez sélectionner une réservation!", 30f, false).setVisible(true);
+        }
+        if (jRadioButton1.isSelected())
+            jTable1.setModel(new VerifiedReservationsController("V"));
+        if (jRadioButton2.isSelected())
+            jTable1.setModel(new VerifiedReservationsController("A"));
+        if (jRadioButton3.isSelected())
+            jTable1.setModel(new AllReservationsController());
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void mebtns(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mebtns
+        // TODO add your handling code here:
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+       evt.getComponent().getParent().setBackground(Color.decode("#818181"));
+    }//GEN-LAST:event_mebtns
+
+    private void mexbtns(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mexbtns
+        // TODO add your handling code here:
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        evt.getComponent().getParent().setBackground(Color.decode("#1d1d1d"));
+    }//GEN-LAST:event_mexbtns
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+        RestaurateurMainMenu rmm;
+        try {
+            rmm = new RestaurateurMainMenu();
+            rmm.setVisible(true);
+        } catch (FontFormatException ex) {
+            Logger.getLogger(ConsultReservation.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConsultReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments

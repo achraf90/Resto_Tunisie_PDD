@@ -29,7 +29,14 @@ public class VerifiedReservationsController extends AbstractTableModel{
     
     @Override
     public int getRowCount() {
+        try 
+        {
         return listeReservations.size();
+        }
+        catch (Exception e)
+                {
+                    return 0;
+                }
     }
 
     @Override

@@ -25,7 +25,14 @@ public class AllRestaurantsController extends AbstractTableModel{
     
     @Override
     public int getRowCount() {
+        try
+        {
         return listeRestaurants.size();
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
     }
 
     @Override

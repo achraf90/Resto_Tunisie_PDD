@@ -28,7 +28,15 @@ public class AllReservationsController extends AbstractTableModel{
     
     @Override
     public int getRowCount() {
-        return listeReservations.size();
+        try
+        {
+            return listeReservations.size();
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+        
     }
 
     @Override

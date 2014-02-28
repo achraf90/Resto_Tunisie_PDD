@@ -128,6 +128,9 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         btnGestRes.setMaximumSize(new java.awt.Dimension(507, 128));
         btnGestRes.setMinimumSize(new java.awt.Dimension(507, 128));
         btnGestRes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGestResMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnsMouseEntred(evt);
             }
@@ -178,6 +181,9 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         btnGestBP.setMaximumSize(new java.awt.Dimension(507, 128));
         btnGestBP.setMinimumSize(new java.awt.Dimension(507, 128));
         btnGestBP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGestBPMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnsMouseEntred(evt);
             }
@@ -344,6 +350,18 @@ public class RestaurateurMainMenu extends javax.swing.JFrame {
         new ConsultRestaurant().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_goToRest
+
+    private void btnGestResMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestResMouseClicked
+        // TODO add your handling code here:
+        new ConsultReservation().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnGestResMouseClicked
+
+    private void btnGestBPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestBPMouseClicked
+        // TODO add your handling code here:
+        new ConsultBonPlan().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnGestBPMouseClicked
 
     /**
      * @param args the command line arguments
