@@ -6,6 +6,16 @@
 
 package esprit.rt.gui;
 
+import esprit.rt.controllers.AllReservationsController;
+import esprit.rt.controllers.VerifiedReservationsController;
+import esprit.rt.dao.ReservationDAO;
+import esprit.rt.utilities.FontsPartieRestaurateur;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Aditsan Kadmus
@@ -17,6 +27,15 @@ public class ConsultReservation extends javax.swing.JFrame {
      */
     public ConsultReservation() {
         initComponents();
+        title.setHorizontalAlignment(JLabel.CENTER);
+        try {
+            title.setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.TITLE, 70));
+        } catch (FontFormatException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -29,8 +48,9 @@ public class ConsultReservation extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -50,25 +70,21 @@ public class ConsultReservation extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(29, 29, 29));
 
-        jLabel1.setText("jLabel1");
+        title.setForeground(new java.awt.Color(204, 204, 204));
+        title.setText("Gestion des réservations");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(new AllReservationsController());
         jScrollPane1.setViewportView(jTable1);
 
         jPanel3.setBackground(new java.awt.Color(29, 29, 29));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/done001.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("Vu!");
@@ -98,13 +114,24 @@ public class ConsultReservation extends javax.swing.JFrame {
         );
 
         jRadioButton1.setBackground(new java.awt.Color(29, 29, 29));
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setForeground(new java.awt.Color(204, 204, 204));
-        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Réservation verifié");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         jRadioButton2.setBackground(new java.awt.Color(29, 29, 29));
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setForeground(new java.awt.Color(204, 204, 204));
         jRadioButton2.setText("Réservation non vérifié");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -112,6 +139,11 @@ public class ConsultReservation extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/ccl001.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("Annuler cette réservation");
@@ -164,14 +196,21 @@ public class ConsultReservation extends javax.swing.JFrame {
         );
 
         jRadioButton3.setBackground(new java.awt.Color(29, 29, 29));
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setForeground(new java.awt.Color(204, 204, 204));
+        jRadioButton3.setSelected(true);
         jRadioButton3.setText("Toutes les réservations");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,7 +231,7 @@ public class ConsultReservation extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -226,6 +265,32 @@ public class ConsultReservation extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+        jTable1.setModel(new VerifiedReservationsController("V"));
+        
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        jTable1.setModel(new VerifiedReservationsController("A"));
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+        jTable1.setModel(new AllReservationsController());
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        new ReservationDAO().updateReservationInterGestRes(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString()), "V");
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        new ReservationDAO().deleteReservation(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString()));
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -264,8 +329,8 @@ public class ConsultReservation extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -280,5 +345,6 @@ public class ConsultReservation extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

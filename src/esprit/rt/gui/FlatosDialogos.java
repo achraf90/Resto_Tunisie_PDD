@@ -6,6 +6,18 @@
 
 package esprit.rt.gui;
 
+import esprit.rt.utilities.FontsPartieRestaurateur;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
+
 /**
  *
  * @author Aditsan Kadmus
@@ -15,8 +27,36 @@ public class FlatosDialogos extends javax.swing.JFrame {
     /**
      * Creates new form FlatosDialogos
      */
+    private JFrame parent;
+    private boolean closeParent;
     public FlatosDialogos() {
         initComponents();
+        setLocationRelativeTo(null);
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setVerticalAlignment(JLabel.CENTER);
+        try {
+            title.setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.TITLE, 70));
+        } catch (FontFormatException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public FlatosDialogos(JFrame parent, String message, float fontSize, boolean closeParent) {
+        initComponents();
+        title.setText(message);
+        setLocationRelativeTo(this);
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setVerticalAlignment(JLabel.CENTER);
+        try {
+            title.setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.TITLE, fontSize));
+        } catch (FontFormatException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.parent = parent;
+        this.closeParent = closeParent;
     }
 
     /**
@@ -29,16 +69,18 @@ public class FlatosDialogos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Notification");
+        setAlwaysOnTop(true);
 
         jPanel1.setBackground(new java.awt.Color(29, 29, 29));
 
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("jLabel1");
+        title.setForeground(new java.awt.Color(204, 204, 204));
+        title.setText("jLabel1");
 
         jPanel2.setBackground(new java.awt.Color(29, 29, 29));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -46,6 +88,17 @@ public class FlatosDialogos extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/ok001.png"))); // NOI18N
         jLabel2.setText("Ok");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -68,7 +121,7 @@ public class FlatosDialogos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(246, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -77,7 +130,7 @@ public class FlatosDialogos extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -96,6 +149,26 @@ public class FlatosDialogos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        parent.setEnabled(true);
+        if (closeParent == true)
+            parent.dispose();
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        // TODO add your handling code here:
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+       evt.getComponent().getParent().setBackground(Color.decode("#818181"));
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+        // TODO add your handling code here:
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        evt.getComponent().getParent().setBackground(Color.decode("#1d1d1d"));
+    }//GEN-LAST:event_jLabel2MouseExited
 
     /**
      * @param args the command line arguments
@@ -133,9 +206,9 @@ public class FlatosDialogos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

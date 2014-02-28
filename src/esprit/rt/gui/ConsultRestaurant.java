@@ -41,6 +41,14 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         }
         jTable.getTableHeader().setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, null, null));
         setLocationRelativeTo(null);
+        title.setHorizontalAlignment(JLabel.CENTER);
+        try {
+            title.setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.TITLE, 70));
+        } catch (FontFormatException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -80,6 +88,8 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         btnJibResto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/download001.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Vos restaurants");
+        setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 onRefresh(evt);
@@ -104,6 +114,7 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable);
         jTable.getAccessibleContext().setAccessibleName("");
 
+        title.setForeground(new java.awt.Color(204, 204, 204));
         title.setText("Vos restaurants");
 
         jPanel2.setBackground(new java.awt.Color(29, 29, 29));
@@ -113,6 +124,9 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/exit003.png"))); // NOI18N
         jLabel2.setText("Quitter");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mouseEnteredBtns(evt);
             }
@@ -323,8 +337,8 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -400,6 +414,11 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         evt.getComponent().getParent().setBackground(Color.decode("#1d1d1d"));
     }//GEN-LAST:event_mouseExitedBtns
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
