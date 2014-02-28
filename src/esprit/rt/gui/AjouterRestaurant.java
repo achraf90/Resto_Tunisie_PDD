@@ -33,7 +33,7 @@ public class AjouterRestaurant extends javax.swing.JFrame {
         jAdressePanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         jAdresse.setWrapStyleWord(true);
         jAdresse.setLineWrap(true);
-        parent.setEnabled(true);
+        
     }
 
     /**

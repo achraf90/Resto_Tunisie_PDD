@@ -386,6 +386,7 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         
         ar.setVisible(true);
         ar.setLocationRelativeTo(this);
+        setEnabled(false);
     }//GEN-LAST:event_onClickBtnAjout
 
     private void mouseEnteredBtns(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseEnteredBtns
