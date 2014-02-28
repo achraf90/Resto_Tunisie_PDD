@@ -37,9 +37,26 @@ public class RestaurantDAO {
             System.out.println("erreur lors de l'insertion "+ex.getMessage());
         }
     }
+public void insertMenuAjouterRestaurant(Restaurant r){
 
+        String requete = "insert into restaurant (nom,adresse,num_tel,description,url,type,id_restaurateur) values (?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setString(1, r.getNom());
+            ps.setString(2, r.getAdresse());
+            ps.setInt(3, r.getNumTel());
+            ps.setString(4, r.getDescription());
+            ps.setString(5, r.getUrl());
+            ps.setString(6, r.getType());
+            ps.setInt(7, SessionRestoTunisie.getId());
+            ps.executeUpdate();
+            System.out.println("Ajout effectuée avec succès");
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de l'insertion "+ex.getMessage());
+        }
+    }
 
-    public void updateDepot(Restaurant r){
+    public void updateRestaurant(Restaurant r){
         String requete = "update restaurant set nom=?,adresse=?,cordonnee=?,num_tel=?,description=?,url=?,type=? where id=? and id_restaurateur=?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
@@ -59,7 +76,25 @@ public class RestaurantDAO {
         }
     }
 
-    public void deleteDepot(int id){
+    public void updateRestaurantInterGestRes(Restaurant r){
+        String requete = "update restaurant set nom=?,adresse=?,num_tel=?,description=?,url=?,type=? where id=? and id_restaurateur=?";
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setString(1, r.getNom());
+            ps.setString(2, r.getAdresse());
+            ps.setInt(3, r.getNumTel());
+            ps.setString(4, r.getDescription());
+            ps.setString(5, r.getUrl());
+            ps.setString(6, r.getType());
+            ps.setInt(7, r.getId());
+            ps.setInt(8, SessionRestoTunisie.getId());
+            ps.executeUpdate();
+            System.out.println("Mise à jour effectuée avec succès");
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la mise à jour "+ex.getMessage());
+        }
+    }
+    public void deleteRestaurant(int id){
         String requete = "delete from restaurant where id=?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
@@ -130,14 +165,14 @@ public class RestaurantDAO {
 
         List<Restaurant> listerestaurants = new ArrayList<Restaurant>();
 
-        String requete = "select * from restaurant where restaurant.id_restaurateur = ?";
+        String requete = "select * from restaurant where id_restaurateur = ?";
         try {
            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
            ps.setInt(1, SessionRestoTunisie.getId());
            ResultSet resultat = ps.executeQuery();
-           Restaurant r =new Restaurant();
+           
             while(resultat.next()){
-                
+                Restaurant r =new Restaurant();
                 r.setId(resultat.getInt(1));
                 r.setNom(resultat.getString(2));
                 r.setAdresse(resultat.getString(3));
@@ -149,11 +184,15 @@ public class RestaurantDAO {
 
                 listerestaurants.add(r);
             }
+            
+            
             return listerestaurants;
+            
         } catch (SQLException ex) {
             System.out.println("erreur lors du chargement des restaurant "+ex.getMessage());
             return null;
         }
+        
     }
     
     public List<Restaurant> findRestaurantsByType (String type){

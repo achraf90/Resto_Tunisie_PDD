@@ -17,37 +17,25 @@ import javax.swing.JScrollPane;
  *
  * @author Aditsan Kadmus
  */
-public class GestRestaurant extends javax.swing.JFrame {
+public class AjouterRestaurant extends javax.swing.JFrame {
 
     /**
      * Creates new form GestRestaurant
      */
     private RestaurantDAO res = new RestaurantDAO ();
-    public GestRestaurant() {
+    public AjouterRestaurant( JFrame parent) {
         initComponents();
         jAdressePanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         jAdressePanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         jAdresse.setWrapStyleWord(true);
         jAdresse.setLineWrap(true);
-        
-    }
-    public GestRestaurant(int id_restaurant, JFrame parent) {
-        initComponents();
-        RestaurantDAO res = new RestaurantDAO();
-        Restaurant r = new Restaurant();
-        r= res.findRestaurantById(id_restaurant);
-        jId.setText(String.valueOf(r.getId()));
-        jNom.setText(r.getNom());
-        jAdresse.setText(r.getAdresse());
-        jDesc.setText(r.getDescription());
-        jTelephone.setText(String.valueOf(r.getNumTel()));
-        jUrl.setText(String.valueOf(r.getUrl()));
         jAdressePanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         jAdressePanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         jAdresse.setWrapStyleWord(true);
         jAdresse.setLineWrap(true);
         parent.setEnabled(true);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,12 +50,8 @@ public class GestRestaurant extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnEffectuer = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        btnRmv = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnExit = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jId = new javax.swing.JTextField();
         jNom = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -91,7 +75,7 @@ public class GestRestaurant extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(29, 29, 29));
 
-        title.setText("Gestion du restaurant #");
+        title.setText("Ajouter Restaurant");
 
         jPanel2.setBackground(new java.awt.Color(29, 29, 29));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -125,41 +109,6 @@ public class GestRestaurant extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnEffectuer)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3.setBackground(new java.awt.Color(29, 29, 29));
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        btnRmv.setForeground(new java.awt.Color(204, 204, 204));
-        btnRmv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/ccl001.png"))); // NOI18N
-        btnRmv.setText("Supprimer le restaurant");
-        btnRmv.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRmvMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnsMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnsMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRmv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRmv)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -197,11 +146,6 @@ public class GestRestaurant extends javax.swing.JFrame {
                 .addComponent(btnExit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Id");
-
-        jId.setEditable(false);
 
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("Nom");
@@ -248,10 +192,6 @@ public class GestRestaurant extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jAdressePanel1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jId, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jNom, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -274,7 +214,6 @@ public class GestRestaurant extends javax.swing.JFrame {
                         .addGap(56, 56, 56)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(210, 210, 210)))
                 .addContainerGap())
@@ -284,20 +223,15 @@ public class GestRestaurant extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(44, 44, 44)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -352,13 +286,12 @@ public class GestRestaurant extends javax.swing.JFrame {
     private void btnsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsMouseExited
         // TODO add your handling code here:
         this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        evt.getComponent().getParent().setBackground(Color.decode("#1d1d1d"));
+        evt.getComponent().getParent().setBackground(Color.decode("#201c19"));
     }//GEN-LAST:event_btnsMouseExited
 
     private void btnEffectuerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEffectuerMouseClicked
         // TODO add your handling code here:
         Restaurant r = new Restaurant ();
-        r.setId(Integer.parseInt(jId.getText()));
         r.setNom(jNom.getText());
         r.setAdresse(jAdresse.getText());
         r.setNumTel(Integer.parseInt(jTelephone.getText()));
@@ -367,13 +300,8 @@ public class GestRestaurant extends javax.swing.JFrame {
         r.setType(jType.getSelectedItem().toString());
         
         
-        res.updateRestaurantInterGestRes(r);
+        res.insertMenuAjouterRestaurant(r);
     }//GEN-LAST:event_btnEffectuerMouseClicked
-
-    private void btnRmvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRmvMouseClicked
-        // TODO add your handling code here:
-        res.deleteRestaurant(Integer.parseInt(jId.getText()));
-    }//GEN-LAST:event_btnRmvMouseClicked
 
     /**
      * @param args the command line arguments
@@ -392,20 +320,20 @@ public class GestRestaurant extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestRestaurant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterRestaurant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestRestaurant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterRestaurant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestRestaurant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterRestaurant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestRestaurant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterRestaurant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestRestaurant().setVisible(true);
+                new AjouterRestaurant(null).setVisible(true);
             }
         });
     }
@@ -413,13 +341,10 @@ public class GestRestaurant extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnEffectuer;
     private javax.swing.JLabel btnExit;
-    private javax.swing.JLabel btnRmv;
     private javax.swing.JTextArea jAdresse;
     private javax.swing.JScrollPane jAdressePanel;
     private javax.swing.JScrollPane jAdressePanel1;
     private javax.swing.JTextArea jDesc;
-    private javax.swing.JTextField jId;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -430,7 +355,6 @@ public class GestRestaurant extends javax.swing.JFrame {
     private javax.swing.JTextField jNom;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTelephone;
     private javax.swing.JComboBox jType;

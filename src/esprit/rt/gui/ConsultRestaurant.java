@@ -33,13 +33,13 @@ public class ConsultRestaurant extends javax.swing.JFrame {
     public ConsultRestaurant() {
         initComponents();
         title.setVerticalAlignment(JLabel.CENTER);
-        jTable1.getTableHeader().setBackground(Color.decode("#656565"));
+        jTable.getTableHeader().setBackground(Color.decode("#656565"));
         try {
-            jTable1.getTableHeader().setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.LABEL).deriveFont(0,23));
+            jTable.getTableHeader().setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.LABEL).deriveFont(0,23));
         } catch (Exception ex) {
             Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jTable1.getTableHeader().setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, null, null));
+        jTable.getTableHeader().setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, null, null));
         setLocationRelativeTo(null);
     }
 
@@ -52,14 +52,16 @@ public class ConsultRestaurant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
+        btnJibResto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         title = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jBtnAffMod = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -69,13 +71,38 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        btnJibResto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/download001.png"))); // NOI18N
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                onRefresh(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                onRefresh(evt);
+            }
+        });
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                onRefresh(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(29, 29, 29));
 
-        jTable1.setModel(new AllRestaurantsController());
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getAccessibleContext().setAccessibleName("");
+        jTable.setModel(new AllRestaurantsController());
+        jScrollPane1.setViewportView(jTable);
+        jTable.getAccessibleContext().setAccessibleName("");
 
         title.setText("Vos restaurants");
 
@@ -85,6 +112,14 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/exit003.png"))); // NOI18N
         jLabel2.setText("Quitter");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mouseEnteredBtns(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mouseExitedBtns(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -106,9 +141,20 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(29, 29, 29));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/detail001.png"))); // NOI18N
-        jLabel1.setText("Afficher en détail et modifier");
+        jBtnAffMod.setForeground(new java.awt.Color(204, 204, 204));
+        jBtnAffMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/detail001.png"))); // NOI18N
+        jBtnAffMod.setText("Afficher en détail et modifier");
+        jBtnAffMod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnAffModMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mouseEnteredBtns(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mouseExitedBtns(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -116,14 +162,14 @@ public class ConsultRestaurant extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                .addComponent(jBtnAffMod, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(jBtnAffMod)
                 .addGap(42, 42, 42))
         );
 
@@ -136,6 +182,17 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/rest001.png"))); // NOI18N
         jLabel3.setText("Ajouter un restaurant");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                onClickBtnAjout(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mouseEnteredBtns(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mouseExitedBtns(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -191,6 +248,14 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/stats001.png"))); // NOI18N
         jLabel5.setText("Statistiques");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mouseEnteredBtns(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mouseExitedBtns(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -287,6 +352,54 @@ public class ConsultRestaurant extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jBtnAffModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAffModMouseClicked
+        // TODO add your handling code here:
+        if (jTable.getSelectedRow() == -1)
+        {
+            
+        }
+        else
+        {
+        GestRestaurant gr;
+        gr = new GestRestaurant(Integer.parseInt( jTable.getValueAt(jTable.getSelectedRow(),0).toString()),this);
+        
+        gr.setVisible(true);
+        gr.setLocationRelativeTo(this);
+        
+        
+        }
+    }//GEN-LAST:event_jBtnAffModMouseClicked
+
+    private void onRefresh(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onRefresh
+        // TODO add your handling code here:
+        jTable.setModel(new AllRestaurantsController());
+    }//GEN-LAST:event_onRefresh
+
+    private void onClickBtnAjout(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onClickBtnAjout
+        // TODO add your handling code here:
+        AjouterRestaurant ar;
+        ar = new AjouterRestaurant(this);
+        
+        ar.setVisible(true);
+        ar.setLocationRelativeTo(this);
+    }//GEN-LAST:event_onClickBtnAjout
+
+    private void mouseEnteredBtns(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseEnteredBtns
+        // TODO add your handling code here:
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+       evt.getComponent().getParent().setBackground(Color.decode("#818181"));
+    }//GEN-LAST:event_mouseEnteredBtns
+
+    private void mouseExitedBtns(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseExitedBtns
+        // TODO add your handling code here:
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        evt.getComponent().getParent().setBackground(Color.decode("#1d1d1d"));
+    }//GEN-LAST:event_mouseExitedBtns
+
     /**
      * @param args the command line arguments
      */
@@ -323,7 +436,8 @@ public class ConsultRestaurant extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel btnJibResto;
+    private javax.swing.JLabel jBtnAffMod;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -337,7 +451,8 @@ public class ConsultRestaurant extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

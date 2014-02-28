@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class AllRestaurantsController extends AbstractTableModel{
 
-    String[] headers = {"Id", "Nom", "Adresse", "Cordonnee", "Numéro téléphone", "Description", "URL", "Type"};
+    String[] headers = {"Id","Nom", "Adresse"};
     List<Restaurant> listeRestaurants = new ArrayList<Restaurant>();
     
     public AllRestaurantsController() {
@@ -43,16 +43,6 @@ public class AllRestaurantsController extends AbstractTableModel{
                 return listeRestaurants.get(rowIndex).getNom();
             case 2:
                 return listeRestaurants.get(rowIndex).getAdresse();
-            case 3:
-                return listeRestaurants.get(rowIndex).getCordonnee();
-            case 4:
-                return listeRestaurants.get(rowIndex).getNumTel();
-            case 5:
-                return listeRestaurants.get(rowIndex).getDescription();
-            case 6:
-                return listeRestaurants.get(rowIndex).getUrl();
-            case 7:
-                return listeRestaurants.get(rowIndex).getType();
             default:
                 return "erreur";
         }

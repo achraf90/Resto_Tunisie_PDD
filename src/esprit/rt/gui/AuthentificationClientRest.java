@@ -470,7 +470,7 @@ public class AuthentificationClientRest extends javax.swing.JFrame {
 
     private void btnsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsMouseExited
         this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        evt.getComponent().getParent().setBackground(Color.decode("#201c19"));
+        evt.getComponent().getParent().setBackground(Color.decode("#1d1d1d"));
     }//GEN-LAST:event_btnsMouseExited
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
