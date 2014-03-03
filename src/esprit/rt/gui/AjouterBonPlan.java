@@ -6,7 +6,13 @@
 
 package esprit.rt.gui;
 
+import esprit.rt.controllers.AllRestaurants;
+import esprit.rt.dao.BPDAO;
+import esprit.rt.entities.BonPlan;
+import esprit.rt.entities.Restaurant;
 import esprit.rt.utilities.FontsPartieRestaurateur;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -34,8 +40,8 @@ public class AjouterBonPlan extends javax.swing.JFrame {
             Logger.getLogger(AjouterBonPlan.class.getName()).log(Level.SEVERE, null, ex);
         }
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jTextArea1.setWrapStyleWord(true);
-        jTextArea1.setLineWrap(true);
+        jDesc.setWrapStyleWord(true);
+        jDesc.setLineWrap(true);
         setLocationRelativeTo(null);
     }
 
@@ -55,14 +61,17 @@ public class AjouterBonPlan extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jDateDeb = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        jDateFin = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jDesc = new javax.swing.JTextArea();
+        jComboBox1 = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Ajouter un bon plan");
+        setAlwaysOnTop(true);
 
         jPanel1.setBackground(new java.awt.Color(29, 29, 29));
 
@@ -76,11 +85,14 @@ public class AjouterBonPlan extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/exit003.png"))); // NOI18N
         jLabel3.setText("Retour au menu principale");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mcrmp(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                me(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                mex(evt);
             }
         });
 
@@ -108,11 +120,14 @@ public class AjouterBonPlan extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/addopp001.png"))); // NOI18N
         jLabel2.setText("Ajouter un bon plan");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                me(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel3MouseExited(evt);
+                mex(evt);
             }
         });
 
@@ -136,19 +151,21 @@ public class AjouterBonPlan extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("Date debut");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/Y"))));
+        jDateDeb.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/Y"))));
 
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("Date fin");
 
-        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/Y"))));
+        jDateFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/Y"))));
 
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("Description");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jDesc.setColumns(20);
+        jDesc.setRows(5);
+        jScrollPane1.setViewportView(jDesc);
+
+        jComboBox1.setModel(new AllRestaurants());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,15 +177,17 @@ public class AjouterBonPlan extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDateDeb, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -186,16 +205,18 @@ public class AjouterBonPlan extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateDeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
-                        .addContainerGap(33, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(40, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,13 +239,32 @@ public class AjouterBonPlan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+    private void me(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_me
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseEntered
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        evt.getComponent().getParent().setBackground(Color.decode("#818181"));
+    }//GEN-LAST:event_me
 
-    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+    private void mex(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mex
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseExited
+        this.setCursor (Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        evt.getComponent().getParent().setBackground(Color.decode("#1d1d1d"));
+    }//GEN-LAST:event_mex
+
+    private void mcrmp(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mcrmp
+        // TODO add your handling code here:
+        new ConsultBonPlan().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mcrmp
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        BonPlan bp = new BonPlan();
+        bp.setDateDebut((java.util.Date) jDateDeb.getValue());
+        bp.setDateFin((java.util.Date) jDateDeb.getValue());
+        bp.setDescription(jDesc.getText());
+        new BPDAO().insertBonPlan(bp,((Restaurant) jComboBox1.getSelectedItem()).getId());
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -262,8 +302,10 @@ public class AjouterBonPlan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JFormattedTextField jDateDeb;
+    private javax.swing.JFormattedTextField jDateFin;
+    private javax.swing.JTextArea jDesc;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -273,7 +315,6 @@ public class AjouterBonPlan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 

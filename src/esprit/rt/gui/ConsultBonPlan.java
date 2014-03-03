@@ -250,7 +250,9 @@ public class ConsultBonPlan extends javax.swing.JFrame {
         if (jTable.getSelectedRow() != -1)
         {
             new BPDAO().deleteBonPlan(Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 0).toString()));
+            new FlatosDialogos(this, "Supprimé", 30f, false).setVisible(true);
         }
+        
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked

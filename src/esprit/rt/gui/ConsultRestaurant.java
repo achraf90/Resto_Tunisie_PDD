@@ -122,7 +122,7 @@ public class ConsultRestaurant extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/esprit/rt/images/exit003.png"))); // NOI18N
-        jLabel2.setText("Quitter");
+        jLabel2.setText("Retour au menu principale");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
@@ -416,8 +416,15 @@ public class ConsultRestaurant extends javax.swing.JFrame {
     }//GEN-LAST:event_mouseExitedBtns
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
+        try {
+            // TODO add your handling code here:
+            new RestaurateurMainMenu().setVisible(true);
+        } catch (FontFormatException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**

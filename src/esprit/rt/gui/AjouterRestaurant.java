@@ -45,6 +45,7 @@ public class AjouterRestaurant extends javax.swing.JFrame {
         jAdresse.setWrapStyleWord(true);
         jAdresse.setLineWrap(true);
         title.setHorizontalAlignment(JLabel.CENTER);
+        
         setLocationRelativeTo(null);
         try {
             title.setFont(new FontsPartieRestaurateur().getFont(FontsPartieRestaurateur.TITLE, 70));
@@ -53,6 +54,7 @@ public class AjouterRestaurant extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(ConsultRestaurant.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
     

@@ -10,6 +10,7 @@ import esprit.rt.entities.BonPlan;
 import esprit.rt.entities.Restaurant;
 import esprit.rt.utilities.MyConnection;
 import esprit.rt.utilities.SessionRestoTunisie;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,15 +22,15 @@ import java.util.List;
  * @author Aditsan Kadmus
  */
 public class BPDAO {
-    public void insertRestaurant(BonPlan bp){
+    public void insertBonPlan(BonPlan bp, int idRes){
 
-        String requete = "insert into bonplan (date_debut,date_fin,description,id_restaurateur) values (?,?,?,?)";
+        String requete = "insert into bonplan (date_debut,date_fin,description,id_restaurant) values (?,?,?,?)";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
-            ps.setDate(1, bp.getDateDebut());
-            ps.setDate(2, bp.getDateFin());
+            ps.setDate(1, new Date (bp.getDateDebut().getDate()));
+            ps.setDate(2, new Date (bp.getDateFin().getDate()));
             ps.setString(3, bp.getDescription());
-            ps.setInt(4, SessionRestoTunisie.getId());
+            ps.setInt(4, idRes);
             ps.executeUpdate();
             System.out.println("Ajout effectuée avec succès");
         } catch (SQLException ex) {
@@ -54,7 +55,7 @@ public class BPDAO {
 
         List<BonPlan> listebps = new ArrayList<BonPlan>();
 
-        String requete = "select * from bonplan where id_restaurateur=?";
+        String requete = "select bonplan.id, bonplan.date_debut, bonplan.date_fin, bonplan.description from bonplan , restaurant where bonplan.id_restaurant = restaurant.id and restaurant.id_restaurateur=?";
         
         try {
            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
